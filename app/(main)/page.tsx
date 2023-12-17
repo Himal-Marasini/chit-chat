@@ -6,7 +6,7 @@ export default function Home() {
       <p className="text-3xl font-bold text-indigo-500">
         Himanshu Take the lead
       </p>
-      <Button text="Create Account" />
+      {/* <Button text="Create Account" /> */}
     </div>
   );
 }
