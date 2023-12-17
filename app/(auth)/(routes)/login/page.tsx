@@ -19,13 +19,23 @@ const Login = () => {
     });
   };
 
-  const onClickHandler = () => {
-    console.log(state);
+  const onClickHandler = async () => {
     // TODO: make the api call for login
+    console.log(state);
+    const resposne = await fetch("/api/endpoint", {
+      method: "POST", // *GET, POST, PUT, DELETE, etc.
+      headers: {
+        "Content-Type": "application/json"
+        // 'Content-Type': 'application/x-www-form-urlencoded',
+      },
+      body: JSON.stringify(state) // body data type must match "Content-Type" header
+    });
+
+    const data = await resposne.json();
   };
 
   return (
-    <div className="border-solid border-2 border-indigo-500 p-5  w-2/4">
+    <div className="border-solid border-2 border-stone-500 p-5  w-2/4">
       <p className="text-center font-semibold text-lg">Login</p>
       <InputField
         label="Email"
