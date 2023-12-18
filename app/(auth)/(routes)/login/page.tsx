@@ -3,6 +3,8 @@ import Button from "@/components/button/Button";
 import InputField from "@/components/input/Input";
 import React, { ChangeEvent, useState } from "react";
 
+import { postLogin } from "@/restapi/auth.api";
+
 const Login = () => {
   const [state, setState] = useState({
     email: "",
@@ -21,22 +23,19 @@ const Login = () => {
 
   const onClickHandler = async () => {
     // TODO: make the api call for login
-    console.log(state);
-    const resposne = await fetch("/api/endpoint", {
-      method: "POST", // *GET, POST, PUT, DELETE, etc.
-      headers: {
-        "Content-Type": "application/json"
-        // 'Content-Type': 'application/x-www-form-urlencoded',
-      },
-      body: JSON.stringify(state) // body data type must match "Content-Type" header
-    });
-
-    const data = await resposne.json();
+    const response = await postLogin(state);
+    console.log("LINE:27", response);
   };
 
   return (
     <div className="border-solid border-2 border-stone-500 p-5  w-2/4">
       <p className="text-center font-semibold text-lg">Login</p>
+      <div
+        className="p-4 mb-4 mt-5 text-sm text-white rounded-lg bg-red-500 dark:bg-gray-800 dark:text-red-400"
+        role="alert"
+      >
+        <span className="font-medium">Account not found!</span>
+      </div>
       <InputField
         label="Email"
         type="email"
@@ -51,6 +50,7 @@ const Login = () => {
         value={state.password}
         onChangeHandler={onChangeHandler}
       />
+
       <Button
         type="button"
         className="text-[14px] bg-button text-white"
