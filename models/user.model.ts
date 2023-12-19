@@ -31,8 +31,8 @@ const UsersSchema = new mongoose.Schema<Users>({
   },
   password: {
     type: String,
-    required: [true, "Password is the required field."],
-    maxlength: [20, "Password cannot be more than 30 characters"]
+    required: [true, "Password is the required field."]
+    // maxlength: [40, "Password cannot be more than 40 characters"]
   }
 });
 

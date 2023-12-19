@@ -1,6 +1,7 @@
 "use client";
 import Button from "@/components/button/Button";
 import InputField from "@/components/input/Input";
+import { postCreateAccount } from "@/restapi/auth.api";
 import { ChangeEvent, useState } from "react";
 
 const Register = () => {
@@ -20,6 +21,11 @@ const Register = () => {
       ...state,
       [name]: value
     });
+  };
+
+  const onClickHandler = async () => {
+    const response = await postCreateAccount(state);
+    console.log("response", response);
   };
 
   return (
@@ -78,7 +84,7 @@ const Register = () => {
       <Button
         type="button"
         className="text-[14px] bg-button text-white"
-        // onClickHandler={onClickHandler}
+        onClickHandler={onClickHandler}
       >
         Create Account
       </Button>
