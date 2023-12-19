@@ -16,7 +16,7 @@ const InputField = ({
   onChangeHandler: React.ChangeEventHandler<HTMLInputElement>;
 }) => {
   return (
-    <label className="block mt-3.5">
+    <label className="block mt-3.5 w-[100%]">
       <span className="after:ml-0.5 block text-sm font-medium text-slate-700">
         {label}
       </span>

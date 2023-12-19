@@ -2,7 +2,7 @@ type ButtonProps = {
   type: "button" | "submit";
   children: React.ReactNode;
   className?: string;
-  onClickHandler: React.MouseEventHandler<HTMLElement>;
+  onClickHandler?: React.MouseEventHandler<HTMLElement>;
 };
 
 const Button = ({ type, children, className, onClickHandler }: ButtonProps) => {
