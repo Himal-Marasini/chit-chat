@@ -23,9 +23,11 @@ const postCreateAccount = async (payload: {
   try {
     const response = await axios.post("/api/auth/create-account", payload);
     const { success, message, data } = await response.data;
+
     if (!success) {
       throw new Error(message);
     }
+
     return { message, data };
   } catch (error) {
     throw new Error((error as Error).message);

@@ -1,10 +1,16 @@
 "use client";
+import { useRouter } from "next/navigation";
 import Button from "@/components/button/Button";
 import InputField from "@/components/input/Input";
 import { postCreateAccount } from "@/restapi/auth.api";
 import { ChangeEvent, useState } from "react";
 
 const Register = () => {
+  const router = useRouter();
+
+  const [isLoading, setIsLoading] = useState<boolean>(false);
+  const [errorMessage, setErrorMessage] = useState<string>("");
+
   const [state, setState] = useState({
     firstName: "",
     lastName: "",
@@ -24,8 +30,19 @@ const Register = () => {
   };
 
   const onClickHandler = async () => {
-    const response = await postCreateAccount(state);
-    console.log("response", response);
+    if (errorMessage !== "") setErrorMessage("");
+
+    try {
+      setIsLoading(true);
+      await postCreateAccount(state);
+      router.replace("/login");
+      return null; // Render nothing on this page
+    } catch (error) {
+      const message = (error as Error).message;
+      setErrorMessage(message);
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   return (
@@ -33,12 +50,12 @@ const Register = () => {
       <p className="text-center font-semibold text-lg">
         Create Account (ChitChat)
       </p>
-      {/* <div
-        className="p-4 mb-4 mt-5 text-sm text-white rounded-lg bg-red-500 dark:bg-gray-800 dark:text-red-400"
-        role="alert"
-      >
-        <span className="font-medium">Account not found!</span>
-      </div> */}
+
+      {errorMessage ? (
+        <div className="relative block w-full p-4 mb-4 mt-4 text-base leading-5 text-white bg-red-500 rounded-lg opacity-100 font-regular">
+          {errorMessage}
+        </div>
+      ) : null}
 
       <div className="flex justify-evenly gap-x-3">
         <InputField
@@ -82,6 +99,7 @@ const Register = () => {
       />
 
       <Button
+        disabled={isLoading}
         type="button"
         className="text-[14px] bg-button text-white"
         onClickHandler={onClickHandler}

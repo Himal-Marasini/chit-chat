@@ -10,7 +10,7 @@ export async function POST(req: Request) {
 
     const payload = await req.json();
 
-    const user = await Users.findOne({ emailId: payload.emailId });
+    const user = await Users.findOne({ emailId: payload.email });
 
     if (!user) {
       throw new Error("Account not found. Please register the account");
@@ -25,7 +25,7 @@ export async function POST(req: Request) {
     delete user.password;
 
     return NextResponse.json({
-      sucess: true,
+      success: true,
       message: "Account login succesfully",
       data: user
     });

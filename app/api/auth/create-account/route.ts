@@ -8,6 +8,8 @@ export async function POST(req: Request) {
   try {
     await dbConnect();
 
+    // TODO: ADD THE JOI VALIDATION
+
     const payload = await req.json();
 
     const user = await Users.findOne({ emailId: payload.emailId });
@@ -30,7 +32,7 @@ export async function POST(req: Request) {
     await record.save();
 
     return NextResponse.json({
-      sucess: true,
+      success: true,
       message: "Account created succesfully",
       data: record
     });
